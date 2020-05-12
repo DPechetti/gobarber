@@ -3,16 +3,22 @@ import FakeStorageProvider from '@shared/container/providers/StorageProvider/fak
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
 import UpdateUserAvatarService from '@modules/users/services/UpdateUserAvatarService';
 
-describe('UpdateUserAvatar', () => {
-  it('Should be able to create an avatar', async () => {
-    const fakeUserRepository = new FakeUsersRepository();
-    const fakeStorageProvider = new FakeStorageProvider();
+let fakeUserRepository: FakeUsersRepository;
+let fakeStorageProvider: FakeStorageProvider;
+let updateUser: UpdateUserAvatarService;
 
-    const updateUser = new UpdateUserAvatarService(
+describe('UpdateUserAvatar', () => {
+  beforeEach(() => {
+    fakeUserRepository = new FakeUsersRepository();
+    fakeStorageProvider = new FakeStorageProvider();
+
+    updateUser = new UpdateUserAvatarService(
       fakeUserRepository,
       fakeStorageProvider,
     );
+  });
 
+  it('Should be able to create an avatar', async () => {
     const user = await fakeUserRepository.create({
       name: 'Donovan Pechetti',
       email: 'dovi_pf@hotmail.com',
@@ -28,15 +34,7 @@ describe('UpdateUserAvatar', () => {
   });
 
   it('Should be able to update an avatar', async () => {
-    const fakeUserRepository = new FakeUsersRepository();
-    const fakeStorageProvider = new FakeStorageProvider();
-
     const deleteFile = jest.spyOn(fakeStorageProvider, 'deleteFile');
-
-    const updateUser = new UpdateUserAvatarService(
-      fakeUserRepository,
-      fakeStorageProvider,
-    );
 
     const user = await fakeUserRepository.create({
       name: 'Donovan Pechetti',
@@ -59,14 +57,6 @@ describe('UpdateUserAvatar', () => {
   });
 
   it('Should not be able to update a non-existent user avatar', async () => {
-    const fakeUserRepository = new FakeUsersRepository();
-    const fakeStorageProvider = new FakeStorageProvider();
-
-    const updateUser = new UpdateUserAvatarService(
-      fakeUserRepository,
-      fakeStorageProvider,
-    );
-
     await expect(
       updateUser.execute({
         user_id: 'non-existent-user',
