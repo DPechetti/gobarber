@@ -9,10 +9,11 @@ interface IRequest {
   provider_id: string;
   date: Date;
 }
+
 @injectable()
 class CreateAppointmentService {
   constructor(
-    @inject('AppoinmentsRepository')
+    @inject('AppointmentsRepository')
     private appointmentsRepository: IAppointmentsRepository,
   ) {}
 
