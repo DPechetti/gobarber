@@ -30,7 +30,7 @@ interface AuthContextData {
   user: User;
   loading: boolean;
   signIn(credentials: SingInCredentials): Promise<void>;
-  singOut(): void;
+  signOut(): void;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -76,14 +76,14 @@ export const AuthProvider: React.FC = ({ children }) => {
     setData({ token, user });
   }, []);
 
-  const singOut = useCallback(async () => {
+  const signOut = useCallback(async () => {
     await AsyncStorage.multiRemove(['@GoBarber:token', '@GoBarber:user']);
 
     setData({} as AuthState);
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user: data.user, loading, signIn, singOut }}>
+    <AuthContext.Provider value={{ user: data.user, loading, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );
