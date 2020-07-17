@@ -33,6 +33,7 @@ const Profile: React.FC = () => {
     async (data: ProfileFormData) => {
       try {
         formRef.current?.setErrors({});
+
         const schema = Yup.object().shape({
           name: Yup.string().required('Nome obrigaorio'),
           email: Yup.string()
@@ -64,6 +65,7 @@ const Profile: React.FC = () => {
           password,
           password_confirmation,
         } = data;
+
         const formData = {
           name,
           email,
