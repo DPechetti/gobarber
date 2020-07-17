@@ -130,7 +130,7 @@ const Profile: React.FC = () => {
     } catch (err) {
       Alert.alert(
         'Erro ao criar agendamento',
-        'Ocooreu um erro ao tentar criar um agendamento, tente novamente',
+        'Ocorreu um erro ao tentar criar um agendamento, tente novamente',
       );
     }
   }, [navigate, selectedDate, selectedHour, selectedProvider]);
